@@ -1,0 +1,38 @@
+@model HomePageViewModel
+@{
+    ViewData["Title"] = "Главная";
+}
+
+<section class="section">
+    <h1 class="h1">Главные новости дня</h1>
+
+    <div class="grid grid--3">
+        @foreach (var item in Model.MainCards)
+        {
+            <a class="card card--news" href="@Url.Action("Details","News", new { id = item.Id })" style="--accent:@item.Color">
+                <div class="card__banner"></div>
+                <div class="card__body">
+                    <div class="card__meta">@item.CategoryName</div>
+                    <div class="card__title">@item.Title</div>
+                    <div class="card__text">@item.Summary</div>
+                </div>
+            </a>
+        }
+    </div>
+</section>
+
+<section class="section">
+    <h2 class="h2">Последние публикации</h2>
+
+    <div class="list">
+        @foreach (var item in Model.Latest)
+        {
+            <a class="list__row" href="@Url.Action("Details","News", new { id = item.Id })">
+                <span class="dot" style="background:@item.Color"></span>
+                <span class="list__title">@item.Title</span>
+                <span class="list__category">@item.CategoryName</span>
+                <span class="list__date">@item.PublishedAt.ToLocalTime().ToString("dd.MM.yyyy")</span>
+            </a>
+        }
+    </div>
+</section>
