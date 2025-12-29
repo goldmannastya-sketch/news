@@ -1,0 +1,41 @@
+@model CategoryPageViewModel
+@{
+    ViewData["Title"] = Model.Category.Name;
+}
+
+<section class="section">
+    <h1 class="h1">@Model.Category.Name</h1>
+
+    @{
+        var featured = Model.Items.Take(2).ToList();
+        var rest = Model.Items.Skip(2).ToList();
+    }
+
+    <div class="grid grid--2">
+        @foreach (var item in featured)
+        {
+            <a class="card card--news card--news-lg" href="@Url.Action("Details","News", new { id = item.Id })" style="--accent:@item.Color">
+                <div class="card__banner card__banner--lg"></div>
+                <div class="card__body">
+                    <div class="card__title">@item.Title</div>
+                    <div class="card__text">@item.Summary</div>
+                </div>
+            </a>
+        }
+    </div>
+
+    <div class="spacer"></div>
+
+    <div class="grid grid--3">
+        @foreach (var item in rest)
+        {
+            <a class="card card--news" href="@Url.Action("Details","News", new { id = item.Id })" style="--accent:@item.Color">
+                <div class="card__banner"></div>
+                <div class="card__body">
+                    <div class="card__title">@item.Title</div>
+                    <div class="card__text">@item.Summary</div>
+                </div>
+            </a>
+        }
+    </div>
+</section>
