@@ -1,0 +1,37 @@
+@model IReadOnlyList<NewsPortal.Models.NewsItem>
+@{
+    ViewData["Title"] = "Admin";
+}
+
+<section class="section">
+    <div class="admin-head">
+        <h1 class="h1">Admin / Новости</h1>
+        <a class="btn btn--primary" asp-controller="Admin" asp-action="Create">+ Добавить новость</a>
+    </div>
+
+    <div class="table">
+        <div class="table__row table__row--head">
+            <div>ID</div>
+            <div>Заголовок</div>
+            <div>Категория</div>
+            <div>Дата</div>
+            <div></div>
+        </div>
+
+        @foreach (var n in Model)
+        {
+            <div class="table__row">
+                <div>@n.Id</div>
+                <div class="table__title">@n.Title</div>
+                <div>@n.CategoryName</div>
+                <div>@n.PublishedAt.ToLocalTime().ToString("dd.MM.yyyy")</div>
+                <div class="table__actions">
+                    <a class="btn btn--sm" asp-controller="Admin" asp-action="Edit" asp-route-id="@n.Id">Редакт.</a>
+                    <form method="post" asp-controller="Admin" asp-action="Delete" asp-route-id="@n.Id" onsubmit="return confirm('Удалить новость?');">
+                        <button class="btn btn--sm btn--danger" type="submit">Удалить</button>
+                    </form>
+                </div>
+            </div>
+        }
+    </div>
+</section>

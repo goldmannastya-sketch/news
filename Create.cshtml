@@ -1,0 +1,64 @@
+@model NewsPortal.Models.NewsItem
+@{
+    ViewData["Title"] = "Создать";
+    var categories = ViewBag.Categories as IReadOnlyList<NewsPortal.Models.Category> ?? Array.Empty<NewsPortal.Models.Category>();
+}
+
+<section class="section">
+    <h1 class="h1">Создать новость</h1>
+
+    <form method="post" class="form">
+        <div class="form__row">
+            <label>Категория</label>
+            <select asp-for="CategoryId" class="input">
+                @foreach (var c in categories)
+                {
+                    <option value="@c.Id">@c.Name</option>
+                }
+            </select>
+        </div>
+
+        <div class="form__row">
+            <label>Заголовок</label>
+            <input asp-for="Title" class="input" />
+            <span class="error" asp-validation-for="Title"></span>
+        </div>
+
+        <div class="form__row">
+            <label>Кратко (Summary)</label>
+            <textarea asp-for="Summary" class="input input--textarea"></textarea>
+            <span class="error" asp-validation-for="Summary"></span>
+        </div>
+
+        <div class="form__row">
+            <label>Текст</label>
+            <textarea asp-for="Content" class="input input--textarea" rows="8"></textarea>
+            <span class="error" asp-validation-for="Content"></span>
+        </div>
+
+        <div class="form__grid">
+            <div class="form__row">
+                <label>Цвет карточки</label>
+                <input asp-for="Color" class="input" placeholder="#2D6CDF" />
+                <small class="muted">Например: #E53935</small>
+            </div>
+
+            <div class="form__row">
+                <label>Дата публикации</label>
+                <input asp-for="PublishedAt" class="input" type="datetime-local"
+                       value="@Model.PublishedAt.ToString("yyyy-MM-ddTHH:mm")" />
+            </div>
+
+            <div class="form__row form__row--checkbox">
+                <label>
+                    <input asp-for="IsFeatured" /> Показывать на главной (Featured)
+                </label>
+            </div>
+        </div>
+
+        <div class="form__actions">
+            <button class="btn btn--primary" type="submit">Создать</button>
+            <a class="btn" asp-controller="Admin" asp-action="Index">Отмена</a>
+        </div>
+    </form>
+</section>
