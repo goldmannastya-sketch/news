@@ -1,0 +1,42 @@
+@{
+    var title = ViewData["Title"] as string ?? "Новостной портал";
+}
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@title — Новостной Портал</title>
+    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+</head>
+<body>
+<header class="topbar">
+    <div class="container topbar__inner">
+        <div class="brand">
+            <a class="brand__link" asp-controller="Home" asp-action="Index">Новостной Портал</a>
+        </div>
+
+        <nav class="nav">
+            <a class="nav__link" asp-controller="Home" asp-action="Index">Главная</a>
+            <a class="nav__link" asp-controller="Category" asp-action="Index" asp-route-slug="politics">Политика</a>
+            <a class="nav__link" asp-controller="Category" asp-action="Index" asp-route-slug="tech">Технологии</a>
+            <a class="nav__link" asp-controller="Category" asp-action="Index" asp-route-slug="sport">Спорт</a>
+            <a class="nav__link" asp-controller="Category" asp-action="Index" asp-route-slug="culture">Культура</a>
+            <a class="nav__link nav__link--admin" asp-controller="Admin" asp-action="Index">Admin</a>
+        </nav>
+    </div>
+</header>
+
+<main class="page">
+    <div class="container">
+        @RenderBody()
+    </div>
+</main>
+
+<footer class="footer">
+    <div class="container footer__inner">
+        <span>© @DateTime.Now.Year Новостной Портал. Все права защищены.</span>
+    </div>
+</footer>
+</body>
+</html>
