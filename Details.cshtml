@@ -1,0 +1,27 @@
+@model NewsPortal.Models.NewsItem
+@{
+    ViewData["Title"] = Model.Title;
+}
+
+<article class="article">
+    <div class="article__banner" style="background:@Model.Color"></div>
+
+    <div class="article__header">
+        <div class="article__meta">
+            <a class="chip" asp-controller="Category" asp-action="Index" asp-route-slug="@Model.CategorySlug">@Model.CategoryName</a>
+            <span class="muted">@Model.PublishedAt.ToLocalTime().ToString("dd.MM.yyyy HH:mm")</span>
+        </div>
+
+        <h1 class="article__title">@Model.Title</h1>
+        <p class="article__lead">@Model.Summary</p>
+    </div>
+
+    <div class="article__content">
+        <p>@Model.Content</p>
+        <p class="muted">Материал подготовлен в рамках учебного задания. Источник текста — авторский пример.</p>
+    </div>
+
+    <div class="article__actions">
+        <a class="btn" asp-controller="Home" asp-action="Index">← На главную</a>
+    </div>
+</article>
